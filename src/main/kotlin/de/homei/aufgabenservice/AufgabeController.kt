@@ -10,8 +10,13 @@ class AufgabeController {
 
     @Autowired lateinit var aufgabeRepository : AufgabeRepository
 
-    @GetMapping("/aufgaben")
-    fun getAufgabenByTitel(@RequestParam(value = "titel") titel: String) : List<Aufgabe> {
+    @GetMapping("/aufgaben", params = Array(1,"titel"))
+    fun getAufgabenByTitel(@RequestParam(value = "titel", required = true) titel: String) : List<Aufgabe> {
         return aufgabeRepository.findByTitel(titel)
+    }
+
+    @GetMapping("/aufgaben")
+    fun getAllAufgaben() : List<Aufgabe> {
+        return aufgabeRepository.findAll()
     }
 }

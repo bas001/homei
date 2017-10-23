@@ -11,6 +11,7 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+        // Default Konstruktor fuer Hibernate
         classpath "org.jetbrains.kotlin:kotlin-noarg:${kotlinVersion}"
         classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.1'
 
@@ -38,6 +39,7 @@ compileTestKotlin {
 
 repositories {
     mavenCentral()
+    // Spring Extension fuer Junit5
     maven { url 'https://jitpack.io' }
 
 }
@@ -51,9 +53,12 @@ dependencies {
     compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     runtime('com.h2database:h2')
     testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    // Junit 5
     testCompile("org.junit.jupiter:junit-jupiter-api:5.0.0")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.0")
     testRuntime("org.junit.platform:junit-platform-launcher:1.0.0")
+    // Spring Extension
     testCompile('com.github.sbrannen:spring-test-junit5:1.0.0')
 
 }

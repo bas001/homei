@@ -9,5 +9,5 @@ data class Aufgabe (
         @Id var id: Int,
         var titel: String,
         var beschreibung: String,
-        var erstelltAm: LocalDate
+        var erstelltAm: LocalDate?
 )
