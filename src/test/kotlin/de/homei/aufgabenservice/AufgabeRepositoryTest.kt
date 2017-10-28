@@ -1,9 +1,7 @@
 package de.homei.aufgabenservice
 
-import org.junit.Assert
-import org.junit.jupiter.api.Test
-
 import org.junit.Assert.assertEquals
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -20,7 +18,6 @@ class AufgabeRepositoryTest {
 
     @Test
     fun writeTest() {
-
         val erstelltAm = LocalDate.now()
         val aufgabe = Aufgabe(1, "titel", "3", erstelltAm)
         aufgabeRepository.save(aufgabe)
@@ -29,12 +26,14 @@ class AufgabeRepositoryTest {
         assertEquals(findByTitel.single().titel, "titel")
         assertEquals(findByTitel.single().beschreibung, "3")
         assertEquals(findByTitel.single().erstelltAm, erstelltAm)
+
+        aufgabeRepository.delete(aufgabe)
     }
 
     @Test
     fun readTest() {
         val findAll = aufgabeRepository.findAll()
-        assertEquals(findAll.size > 1, true)
+        assertEquals(findAll.isNotEmpty(), true)
 
     }
 

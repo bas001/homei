@@ -1,1 +1,1 @@
-INSERT INTO AUFGABE (ID, TITEL, BESCHREIBUNG) VALUES(1, 'titel', 'beschreibung');
+INSERT INTO AUFGABE (ID, TITEL, BESCHREIBUNG) VALUES(999, 'einkaufen', 'gute wurst');
