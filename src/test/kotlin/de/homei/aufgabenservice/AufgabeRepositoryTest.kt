@@ -19,7 +19,7 @@ class AufgabeRepositoryTest {
     @Test
     fun writeTest() {
         val erstelltAm = LocalDate.now()
-        val aufgabe = Aufgabe(1, "titel", "3", erstelltAm)
+        val aufgabe = Aufgabe("titel", "3", erstelltAm, 1)
         aufgabeRepository.save(aufgabe)
         val findByTitel = aufgabeRepository.findByTitel("titel")
         assertEquals(findByTitel.single().id, 1)
