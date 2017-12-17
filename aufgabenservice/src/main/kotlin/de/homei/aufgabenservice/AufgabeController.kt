@@ -22,7 +22,7 @@ class AufgabeController {
     }
 
     @PostMapping
-    fun aufgabeAnlegen(@RequestBody aufgabeRequest : AufgabeAnlegenRequest ) : Aufgabe {
+    fun aufgabeAnlegen(@RequestBody aufgabeRequest : AufgabeAnlegenRequest) : Aufgabe {
         return aufgabeRepository.save(Aufgabe.erzeuge(aufgabeRequest))
     }
 }

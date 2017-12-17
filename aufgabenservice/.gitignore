@@ -4,6 +4,7 @@
 *.jar
 gradle-wrapper.properties
 gradlew*
+/out
 
 ### STS ###
 .apt_generated
