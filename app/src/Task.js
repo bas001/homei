@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './Task.css';
 
 
 class Task extends Component {
@@ -10,7 +11,6 @@ class Task extends Component {
 
 
     componentDidMount() {
-        console.log("mounting");
     }
 
     render() {
@@ -32,7 +32,8 @@ class Task extends Component {
                 <input
                     ref="editField"
                     className="edit"
-                />
+
+            />
             </div>
         );
     }
