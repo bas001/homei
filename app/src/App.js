@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import {fetchTasks} from "./FetchTasks.js";
+import {getAllTasks} from "./FetchTasks.js";
 import Task from './Task'
 
 
@@ -13,7 +13,7 @@ class App extends Component {
 
 
     componentDidMount() {
-        fetchTasks()
+        getAllTasks()
             .then(tasks => this.setState({tasks}))
     }
 
@@ -26,9 +26,9 @@ class App extends Component {
                 <div>
                     <Task/>
                 </div>
-                <ul>
+                <ul className="Tasklist">
                     {this.state.tasks.map(function(task){
-                         return <li key={task.id}><Task title={task.titel} description={task.beschreibung}/></li>;
+                         return <li key={task.id}><Task id={task.id} title={task.titel} description={task.beschreibung}/></li>;
                     })}
                 </ul>
             </div>

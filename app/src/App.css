@@ -18,6 +18,12 @@
   font-size: large;
 }
 
+.Tasklist {
+  list-style-type: none;
+  padding: 0;
+
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

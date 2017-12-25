@@ -1,0 +1,9 @@
+.Task{
+    border:1px solid black;
+    margin: 0 auto;
+}
+.edit{
+    border: 0 none;
+    background-color: lightgray;
+}
+

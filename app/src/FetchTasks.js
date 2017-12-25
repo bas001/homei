@@ -11,17 +11,50 @@ mock.push({
 });
 
 
-let fetchTasks = function fetchLatin() {
-    return fetch('aufgaben')
+let getAllTasks = function get () {
+    return fetch('aufgaben',
+        {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "GET",
+        })
         .then(function (result) {
-                var contentType = result.headers.get("content-type");
+                let contentType = result.headers.get("content-type");
                 if (contentType && contentType.includes("application/json")) {
                     return result.json();
                 }
                 throw new TypeError("Oops, we haven't got JSON!");
             }
         );
-        //.catch(()=>mock)
+    //.catch(()=>mock)
 };
 
-export {fetchTasks}
+let postTask = function post(task, handleTaskCreated) {
+    return fetch('aufgaben',
+        {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify({titel: task.title, beschreibung: task.description})
+        })
+        .then(function (result) {
+                let contentType = result.headers.get("content-type");
+                if (contentType && contentType.includes("application/json")) {
+                    result.json().then(function (result) {
+                            handleTaskCreated(result.id)
+                        }
+                    );
+                    return result;
+                }
+                throw new TypeError("Oops, we haven't got JSON!");
+            }
+        );
+    //.catch(()=>mock)
+};
+
+export {getAllTasks}
+export {postTask}
