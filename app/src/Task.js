@@ -9,10 +9,9 @@ class Task extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {id: props.id, title: props.title, description: props.description, creationDate: new Date()};
+        this.state = {id: props.id};
         this.handleChange = this.handleChange.bind(this);
         this.handlePost = this.handlePost.bind(this);
-
     }
 
     handleChange(event) {
@@ -35,9 +34,17 @@ class Task extends Component {
     }
 
     handlePost(taskDto) {
+        // take values from backend (maybe all?)
         this.setState({id: taskDto.id});
-        this.props.handleTaskCreated(taskDto)
+
+        this.props.handleTaskCreated(taskDto);
+
         // clear input fields
+        this.refs.description.value = "";
+        this.refs.title.value = "";
+
+        // reset state
+        this.setState({id: null})
     }
 
     componentDidMount() {
@@ -56,14 +63,14 @@ class Task extends Component {
                                ref = "title"
                                data-attribute="title"
                                onChange={this.handleChange}
-                               defaultValue={this.state.title}/></td>
+                               defaultValue={this.props.title}/></td>
                 </tr>
                 <tr>
                     <td><input className="edit"
                                ref = "description"
                                data-attribute="description"
                                onChange={this.handleChange}
-                               defaultValue={this.state.description}/></td>
+                               defaultValue={this.props.description}/></td>
                 </tr>
                 </tbody>
             </table>
