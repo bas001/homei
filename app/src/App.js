@@ -9,12 +9,21 @@ class App extends Component {
     constructor() {
         super();
         this.state = {tasks: []};
+        this.handleTaskCreated = this.handleTaskCreated.bind(this);
     }
 
 
     componentDidMount() {
         getAllTasks()
             .then(tasks => this.setState({tasks}))
+    }
+
+    handleTaskCreated(task) {
+        console.log(task);
+        console.log(this.state.tasks);
+        this.state.tasks.push(task);
+        console.log(this.state.tasks);
+        this.setState({tasks: this.state.tasks});
     }
 
     render() {
@@ -24,7 +33,7 @@ class App extends Component {
                     <h2>Was ist zu tun?</h2>
                 </div>
                 <div>
-                    <Task/>
+                    <Task title="....." handleTaskCreated={this.handleTaskCreated}/>
                 </div>
                 <ul className="Tasklist">
                     {this.state.tasks.map(function(task){

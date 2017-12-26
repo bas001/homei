@@ -31,7 +31,7 @@ let getAllTasks = function get () {
     //.catch(()=>mock)
 };
 
-let postTask = function post(task, handleTaskCreated) {
+let postTask = function post(task, handlePost) {
     return fetch('aufgaben',
         {
             headers: {
@@ -44,8 +44,8 @@ let postTask = function post(task, handleTaskCreated) {
         .then(function (result) {
                 let contentType = result.headers.get("content-type");
                 if (contentType && contentType.includes("application/json")) {
-                    result.json().then(function (result) {
-                            handleTaskCreated(result.id)
+                    result.json().then(function (taskDto) {
+                        handlePost(taskDto)
                         }
                     );
                     return result;

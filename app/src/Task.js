@@ -11,7 +11,7 @@ class Task extends Component {
         super(props);
         this.state = {id: props.id, title: props.title, description: props.description, creationDate: new Date()};
         this.handleChange = this.handleChange.bind(this);
-        this.handleTaskCreated = this.handleTaskCreated.bind(this);
+        this.handlePost = this.handlePost.bind(this);
 
     }
 
@@ -24,22 +24,20 @@ class Task extends Component {
         let description = this.refs.description;
         let title = this.refs.title;
 
-
-        let task = this;
+        let it = this;
         inputTimeout = setTimeout(function () {
-            console.log(title.value);
-            console.log(description.value);
-            if (task.state.id) {
+            if (it.state.id) {
                 //patchTask()
             } else {
-                postTask({title: title.value, description: description.value}, task.handleTaskCreated);
+                postTask({title: title.value, description: description.value}, it.handlePost);
             }
         }, 2000);
     }
 
-    handleTaskCreated(id) {
-        console.log("ID:" + id);
-        this.setState({id: id});
+    handlePost(taskDto) {
+        this.setState({id: taskDto.id});
+        this.props.handleTaskCreated(taskDto)
+        // clear input fields
     }
 
     componentDidMount() {
@@ -52,7 +50,6 @@ class Task extends Component {
                 <tr>
                     <td><input className="toggle"
                                type="checkbox"/></td>
-
                 </tr>
                 <tr>
                     <td><input className="edit"
