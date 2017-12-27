@@ -14,7 +14,7 @@ class Task extends Component {
         this.handlePost = this.handlePost.bind(this);
     }
 
-    handleChange(event) {
+    handleChange() {
         // Clear the timeout if it has already been set.
         // This will prevent the previous task from executing
         // if it has been less than <MILLISECONDS>
@@ -28,9 +28,13 @@ class Task extends Component {
             if (it.state.id) {
                 //patchTask()
             } else {
-                postTask({title: title.value, description: description.value}, it.handlePost);
+                postTask({title: title.value, description: description.value})
+                    .then(function (taskDto) {
+                            it.handlePost(taskDto)
+                        }
+                    );
             }
-        }, 2000);
+        }, 3000);
     }
 
     handlePost(taskDto) {
@@ -47,9 +51,6 @@ class Task extends Component {
         this.setState({id: null})
     }
 
-    componentDidMount() {
-    }
-
     render() {
         return (
             <table className="Task">
@@ -60,14 +61,14 @@ class Task extends Component {
                 </tr>
                 <tr>
                     <td><input className="edit"
-                               ref = "title"
+                               ref="title"
                                data-attribute="title"
                                onChange={this.handleChange}
                                defaultValue={this.props.title}/></td>
                 </tr>
                 <tr>
                     <td><input className="edit"
-                               ref = "description"
+                               ref="description"
                                data-attribute="description"
                                onChange={this.handleChange}
                                defaultValue={this.props.description}/></td>

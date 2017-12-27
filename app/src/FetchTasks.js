@@ -1,4 +1,4 @@
-var mock = [];
+let mock = [];
 mock.push({
     "id": 1,
     "titel": "Meine erste Aufgabe",
@@ -21,17 +21,13 @@ let getAllTasks = function get () {
             method: "GET",
         })
         .then(function (result) {
-                let contentType = result.headers.get("content-type");
-                if (contentType && contentType.includes("application/json")) {
-                    return result.json();
-                }
-                throw new TypeError("Oops, we haven't got JSON!");
+                return result.json();
             }
         );
     //.catch(()=>mock)
 };
 
-let postTask = function post(task, handlePost) {
+let postTask = function post(task) {
     return fetch('aufgaben',
         {
             headers: {
@@ -42,19 +38,10 @@ let postTask = function post(task, handlePost) {
             body: JSON.stringify({titel: task.title, beschreibung: task.description})
         })
         .then(function (result) {
-                let contentType = result.headers.get("content-type");
-                if (contentType && contentType.includes("application/json")) {
-                    result.json().then(function (taskDto) {
-                        handlePost(taskDto)
-                        }
-                    );
-                    return result;
-                }
-                throw new TypeError("Oops, we haven't got JSON!");
+            return result.json();
             }
         );
     //.catch(()=>mock)
 };
 
-export {getAllTasks}
-export {postTask}
+export {getAllTasks, postTask}
