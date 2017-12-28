@@ -24,7 +24,6 @@ let getAllTasks = function get () {
                 return result.json();
             }
         );
-    //.catch(()=>mock)
 };
 
 let postTask = function post(task) {
@@ -41,7 +40,22 @@ let postTask = function post(task) {
             return result.json();
             }
         );
-    //.catch(()=>mock)
 };
 
-export {getAllTasks, postTask}
+let patchTask = function patch(task) {
+    return fetch('aufgaben',
+        {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "PATCH",
+            body: JSON.stringify({id: task.id, titel: task.title, beschreibung: task.description})
+        })
+        .then(function (result) {
+                return result.json();
+            }
+        );
+};
+
+export {getAllTasks, postTask, patchTask}

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import './Task.css';
-import {postTask} from "./FetchTasks.js";
+import {patchTask, postTask} from "./FetchTasks.js";
 
-const ENTER_KEY = 'Enter';
+const ENTER = 'Enter';
 
 class Task extends Component {
 
@@ -14,12 +14,15 @@ class Task extends Component {
     }
 
     handleKeyPress(event) {
-        if (event.key === ENTER_KEY) {
+        if (event.key === ENTER) {
+            let title = this.refs.title;
+            let description = this.refs.description;
+
             if (this.state.id) {
-                //patchTask()
+                patchTask({id: this.state.id, title: title.value, description: description.value})
             } else {
                 let it = this;
-                postTask({title: this.refs.title.value, description: this.refs.description.value})
+                postTask({title: title.value, description: description.value})
                     .then(function (taskDto) {
                             it.handlePost(taskDto)
                         }

@@ -27,8 +27,21 @@ class AufgabeController {
     fun aufgabeAnlegen(@RequestBody aufgabeRequest : AufgabeAnlegenRequest) : Aufgabe {
         return aufgabeRepository.save(Aufgabe.erzeuge(aufgabeRequest))
     }
+
+    @PatchMapping
+    fun aufgabeEditieren(@RequestBody aufgabeRequest : AufgabeEditierenRequest) : Aufgabe? {
+        val aufgabe = aufgabeRepository.findOne(aufgabeRequest.id)
+        if (aufgabe != null) {
+            return aufgabeRepository.save(aufgabe.editiere(aufgabeRequest))
+        }
+        return null
+    }
 }
 
 class AufgabeAnlegenRequest(val titel: String, val beschreibung : String) {
     constructor() : this("", "")
+}
+
+class AufgabeEditierenRequest(val id: Int, val titel: String, val beschreibung : String) {
+    constructor() : this(0, "", "")
 }

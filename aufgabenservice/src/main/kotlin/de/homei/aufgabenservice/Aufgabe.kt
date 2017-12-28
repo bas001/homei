@@ -16,4 +16,11 @@ data class Aufgabe constructor(
         fun erzeuge(aufgabeRequest: AufgabeAnlegenRequest): Aufgabe =
                 Aufgabe(aufgabeRequest.titel, aufgabeRequest.beschreibung, LocalDate.now())
     }
+
+    fun editiere(aufgabeRequest: AufgabeEditierenRequest) : Aufgabe {
+        this.titel = aufgabeRequest.titel
+        this.beschreibung = aufgabeRequest.beschreibung
+        return this
+    }
+
 }
