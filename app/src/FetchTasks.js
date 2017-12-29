@@ -26,7 +26,7 @@ let getAllTasks = function get () {
         );
 };
 
-let postTask = function post(task) {
+let postTask = function post(taskRequest) {
     return fetch('aufgaben',
         {
             headers: {
@@ -34,7 +34,7 @@ let postTask = function post(task) {
                 'Content-Type': 'application/json'
             },
             method: "POST",
-            body: JSON.stringify({titel: task.title, beschreibung: task.description})
+            body: taskRequest
         })
         .then(function (result) {
             return result.json();
@@ -42,7 +42,7 @@ let postTask = function post(task) {
         );
 };
 
-let patchTask = function patch(task) {
+let patchTask = function patch(taskRequest) {
     return fetch('aufgaben',
         {
             headers: {
@@ -50,7 +50,7 @@ let patchTask = function patch(task) {
                 'Content-Type': 'application/json'
             },
             method: "PATCH",
-            body: JSON.stringify({id: task.id, titel: task.title, beschreibung: task.description})
+            body: taskRequest
         })
         .then(function (result) {
                 return result.json();

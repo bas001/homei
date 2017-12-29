@@ -10,16 +10,18 @@ data class Aufgabe constructor(
         var titel: String,
         var beschreibung: String,
         var erstelltAm: LocalDate,
+        var status: Status,
         @Id @GeneratedValue var id: Int = 0
 ) {
     companion object Factory {
         fun erzeuge(aufgabeRequest: AufgabeAnlegenRequest): Aufgabe =
-                Aufgabe(aufgabeRequest.titel, aufgabeRequest.beschreibung, LocalDate.now())
+                Aufgabe(aufgabeRequest.titel, aufgabeRequest.beschreibung, LocalDate.now(), Status.OFFEN)
     }
 
     fun editiere(aufgabeRequest: AufgabeEditierenRequest) : Aufgabe {
         this.titel = aufgabeRequest.titel
         this.beschreibung = aufgabeRequest.beschreibung
+        this.status = Status.valueOf(aufgabeRequest.status)
         return this
     }
 

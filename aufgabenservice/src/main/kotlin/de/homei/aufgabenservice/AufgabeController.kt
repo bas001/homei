@@ -42,6 +42,6 @@ class AufgabeAnlegenRequest(val titel: String, val beschreibung : String) {
     constructor() : this("", "")
 }
 
-class AufgabeEditierenRequest(val id: Int, val titel: String, val beschreibung : String) {
-    constructor() : this(0, "", "")
+class AufgabeEditierenRequest(val id: Int, val titel: String, val beschreibung : String, val status: String) {
+    constructor() : this(0, "", "", "")
 }

@@ -33,7 +33,13 @@ class App extends Component {
                 </div>
                 <ul className="Tasklist">
                     {this.state.tasks.map(function(task){
-                         return <li key={task.id}><Task id={task.id} title={task.titel} description={task.beschreibung}/></li>;
+                         return <li key={task.id}>
+                             <Task id={task.id}
+                                   title={task.titel}
+                                   description={task.beschreibung}
+                                   status={task.status}
+                             />
+                         </li>;
                     })}
                 </ul>
             </div>
