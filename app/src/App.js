@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import {getAllTasks} from "./FetchTasks.js";
 import Task from './Task'
+import TaskTemplate from './TaskTemplate'
 
 
 class App extends Component {
@@ -29,7 +30,7 @@ class App extends Component {
                     <h2>Was ist zu tun?</h2>
                 </div>
                 <div>
-                    <Task handleTaskCreated={this.handleTaskCreated}/>
+                    <TaskTemplate handleTaskCreated={this.handleTaskCreated}/>
                 </div>
                 <ul className="Tasklist">
                     {this.state.tasks.map(function(task){

@@ -1,58 +1,14 @@
 import React, {Component} from 'react';
 import './Task.css';
-import {patchTask, postTask} from "./FetchTasks.js";
+import {patchTask} from "./FetchTasks.js";
 
-const ENTER = 'Enter';
+let inputTimeout = null;
 
 class Task extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {id: props.id};
         this.handleKeyPress = this.handleKeyPress.bind(this);
-        this.handlePost = this.handlePost.bind(this);
-    }
-
-    handleKeyPress(event) {
-        if (event.key === ENTER) {
-            let title = this.refs.title;
-            let description = this.refs.description;
-            let checkbox = this.refs.checkbox;
-
-            if (this.state.id) {
-                patchTask(JSON.stringify({
-                    id: this.state.id,
-                    titel: title.value,
-                    beschreibung: description.value,
-                    status: Task.mapToStatus(checkbox.checked)
-                }))
-            } else {
-                let it = this;
-                postTask(JSON.stringify({
-                    titel: title.value,
-                    beschreibung: description.value
-                }))
-                    .then(function (taskDto) {
-                            it.handlePost(taskDto)
-                        }
-                    );
-            }
-        }
-    }
-
-    handlePost(taskDto) {
-        // take values from backend (maybe all?)
-        this.setState({id: taskDto.id});
-
-        this.props.handleTaskCreated(taskDto);
-
-        // clear input fields
-        this.refs.title.focus();
-        this.refs.title.value = "";
-        this.refs.description.value = "";
-
-        // reset state
-        this.setState({id: null})
     }
 
     static mapFromStatus(status) {
@@ -63,6 +19,24 @@ class Task extends Component {
         return checkbox ? 'ERLEDIGT' : 'OFFEN'
     }
 
+    handleKeyPress() {
+        // Clear the timeout if it has already been set.
+        // This will prevent the previous task from executing
+        // if it has been less than <MILLISECONDS>
+        clearTimeout(inputTimeout);
+
+        let it = this;
+        inputTimeout = setTimeout(function () {
+            patchTask(JSON.stringify({
+                id: it.props.id,
+                titel: it.refs.title.value,
+                beschreibung: it.refs.description.value,
+                status: Task.mapToStatus(it.refs.checkbox.checked)
+            }));
+        }, 1000);
+
+    }
+
     render() {
         return (
             <table className="Task">
@@ -71,6 +45,7 @@ class Task extends Component {
                     <td><input className="toggle"
                                ref="checkbox"
                                type="checkbox"
+                               onClick={this.handleKeyPress}
                                defaultChecked={Task.mapFromStatus(this.props.status)}/></td>
                 </tr>
                 <tr>
