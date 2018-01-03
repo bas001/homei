@@ -19,7 +19,7 @@ class App extends Component {
     }
 
     handleTaskCreated(task) {
-        this.state.tasks.push(task);
+        this.state.tasks.unshift(task);
         this.setState({tasks: this.state.tasks});
     }
 

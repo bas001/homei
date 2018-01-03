@@ -19,11 +19,10 @@ class AufgabeRepositoryTest {
     @Test
     fun writeTest() {
         val erstelltAm = LocalDate.now()
-        val aufgabe = Aufgabe("titel", "3", erstelltAm, 1)
+        val aufgabe = Aufgabe("titel1", "3", erstelltAm, Status.OFFEN)
         aufgabeRepository.save(aufgabe)
-        val findByTitel = aufgabeRepository.findByTitel("titel")
-        //assertEquals(findByTitel.single().id, 1)
-        assertEquals(findByTitel.single().titel, "titel")
+        val findByTitel = aufgabeRepository.findByTitel("titel1")
+        assertEquals(findByTitel.single().titel, "titel1")
         assertEquals(findByTitel.single().beschreibung, "3")
         assertEquals(findByTitel.single().erstelltAm, erstelltAm)
 
@@ -32,7 +31,7 @@ class AufgabeRepositoryTest {
 
     @Test
     fun readTest() {
-        val findAll = aufgabeRepository.findAll()
+        val findAll = aufgabeRepository.findAllByOrderByErstelltAmDesc()
         assertEquals(findAll.isNotEmpty(), true)
 
     }
