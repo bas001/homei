@@ -1,7 +1,7 @@
 package de.homei.aufgabenservice
 
-import java.sql.Date
-import java.time.LocalDate
+import java.sql.Timestamp
+import java.time.LocalDateTime
 import javax.persistence.AttributeConverter
 import javax.persistence.Converter
 
@@ -9,12 +9,12 @@ import javax.persistence.Converter
  * Converter fuer Hibernate von LocalDate nach SqlDate
  */
 @Converter(autoApply = true)
-class LocalDateAttributeConverter : AttributeConverter<LocalDate, Date> {
-    override fun convertToEntityAttribute(sqlDate: Date?): LocalDate? {
-        return sqlDate?.toLocalDate()
+class LocalDateAttributeConverter : AttributeConverter<LocalDateTime, Timestamp> {
+    override fun convertToEntityAttribute(sqlTimestamp: Timestamp?): LocalDateTime? {
+        return sqlTimestamp?.toLocalDateTime()
     }
 
-    override fun convertToDatabaseColumn(locDate : LocalDate?) : Date? {
-        return  if (locDate == null) null!! else Date.valueOf(locDate)
+    override fun convertToDatabaseColumn(locDateTime: LocalDateTime?) : Timestamp? {
+        return  if (locDateTime == null) null!! else Timestamp.valueOf(locDateTime)
     }
 }
