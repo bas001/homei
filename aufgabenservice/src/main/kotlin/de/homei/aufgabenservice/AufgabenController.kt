@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 const val TITEL = "titel"
+const val STATUS = "status"
 const val JSON = "application/json"
 
 @RestController
@@ -20,6 +21,11 @@ class AufgabenController(
     @GetMapping
     fun getAllAufgaben(): List<Aufgabe> {
         return aufgabeRepository.findAllByOrderByErstelltAmDesc()
+    }
+
+    @GetMapping(params = arrayOf(STATUS))
+    fun getAllAufgabenByStatus(@RequestParam status: String): List<Aufgabe> {
+        return aufgabeRepository.findByStatusOrderByErstelltAmDesc(Status.valueOf(status))
     }
 
     @PostMapping

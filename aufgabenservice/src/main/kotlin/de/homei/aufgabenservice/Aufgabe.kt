@@ -1,15 +1,14 @@
 package de.homei.aufgabenservice
 
 import java.time.LocalDate
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
 data class Aufgabe constructor(
         var titel: String,
         var beschreibung: String,
         var erstelltAm: LocalDate,
+        @Enumerated(EnumType.STRING)
         var status: Status,
         @Id @GeneratedValue var id: Int = 0
 ) {
