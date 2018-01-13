@@ -1,16 +1,18 @@
 import React, {Component} from 'react';
 import './App.css';
-import {getAllTasks} from "./FetchTasks.js";
+import {getAllTasks, getAllTasksByStatus} from "./FetchTasks.js";
 import Task from './Task'
 import TaskTemplate from './TaskTemplate'
+import {FilterSwitch, FilterStatus} from "./FilterSwitch";
 
 
 class App extends Component {
 
     constructor() {
         super();
-        this.state = {tasks: []};
+        this.state = {tasks: [], filterStatus : FilterStatus.All};
         this.handleTaskCreated = this.handleTaskCreated.bind(this);
+        this.handleFilterStatusChanged = this.handleFilterStatusChanged.bind(this);
     }
 
     componentDidMount() {
@@ -23,6 +25,15 @@ class App extends Component {
         this.setState({tasks: this.state.tasks});
     }
 
+    handleFilterStatusChanged(status) {
+        if (status === FilterStatus.All) {
+            this.componentDidMount()
+        } else {
+            getAllTasksByStatus(status)
+                .then(tasks => this.setState({tasks}))
+        }
+    }
+
     render() {
         return (
             <div className="App">
@@ -31,6 +42,9 @@ class App extends Component {
                 </div>
                 <div>
                     <TaskTemplate handleTaskCreated={this.handleTaskCreated}/>
+                </div>
+                <div>
+                    <FilterSwitch filter={this.state.filterStatus} switchHandler={this.handleFilterStatusChanged}/>
                 </div>
                 <ul className="Tasklist">
                     {this.state.tasks.map(function(task){
