@@ -10,7 +10,7 @@ class App extends Component {
 
     constructor() {
         super();
-        this.state = {tasks: [], filterStatus : FilterStatus.All};
+        this.state = {tasks: [], filterStatus : FilterStatus.Open, failedToLoadTasks: false};
         this.handleTaskCreated = this.handleTaskCreated.bind(this);
         this.handleFilterStatusChanged = this.handleFilterStatusChanged.bind(this);
     }
@@ -18,6 +18,9 @@ class App extends Component {
     componentDidMount() {
         getAllTasks()
             .then(tasks => this.setState({tasks}))
+            .catch(() => {
+                this.setState({failedToLoadTasks: true})
+            })
     }
 
     handleTaskCreated(task) {
@@ -35,6 +38,9 @@ class App extends Component {
     }
 
     render() {
+        if (this.state.failedToLoadTasks === true) {
+            return(<div>Fehler beim Laden der Aufgaben</div>)
+        }
         return (
             <div className="App">
                 <div>

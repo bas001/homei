@@ -15,6 +15,6 @@ class LocalDateAttributeConverter : AttributeConverter<LocalDateTime, Timestamp>
     }
 
     override fun convertToDatabaseColumn(locDateTime: LocalDateTime?) : Timestamp? {
-        return  if (locDateTime == null) null!! else Timestamp.valueOf(locDateTime)
+        return  if (locDateTime == null) null else Timestamp.valueOf(locDateTime)
     }
 }

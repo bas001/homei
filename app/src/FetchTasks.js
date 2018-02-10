@@ -25,7 +25,8 @@ let getAllTasks = function get () {
         .then(function (result) {
                 return result.json();
             }
-        );
+        )
+        .catch(() => Promise.reject("inError"));
 };
 
 let getAllTasksByStatus = function get (status) {
@@ -41,7 +42,9 @@ let getAllTasksByStatus = function get (status) {
         .then(function (result) {
                 return result.json();
             }
-        );
+        )
+        .catch(() => Promise.reject("inError"))
+
 };
 
 let postTask = function post(taskRequest) {
@@ -57,7 +60,8 @@ let postTask = function post(taskRequest) {
         .then(function (result) {
                 return result.json();
             }
-        );
+        )
+        .catch(() => Promise.reject("inError"))
 };
 
 let patchTask = function patch(taskRequest) {
@@ -73,7 +77,8 @@ let patchTask = function patch(taskRequest) {
         .then(function (result) {
                 return result.json();
             }
-        );
+        )
+        .catch(() => Promise.reject("inError"))
 };
 
 export {getAllTasks, postTask, patchTask, getAllTasksByStatus}

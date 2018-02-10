@@ -10,6 +10,7 @@ class TaskTemplate extends Component {
         super(props);
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handlePost = this.handlePost.bind(this);
+        this.state = ({inError: false})
     }
 
     handleKeyPress(event) {
@@ -25,7 +26,8 @@ class TaskTemplate extends Component {
                 .then(function (taskDto) {
                         it.handlePost(taskDto)
                     }
-                );
+                )
+                .catch(() => it.setState({inError: true}))
         }
     }
 
@@ -42,6 +44,11 @@ class TaskTemplate extends Component {
     }
 
     render() {
+        if (this.state.inError === true) {
+            return(
+                <div>Fehler beim Speichern der Aufgaben</div>
+            )
+        }
         return (
             <table className="Task">
                 <tbody>
@@ -63,6 +70,7 @@ class TaskTemplate extends Component {
             </table>
         );
     }
+
 }
 
 export default TaskTemplate

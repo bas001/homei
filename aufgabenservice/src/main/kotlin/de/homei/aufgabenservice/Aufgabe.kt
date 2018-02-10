@@ -18,6 +18,7 @@ data class Aufgabe constructor(
     }
 
     fun editiere(aufgabeRequest: AufgabeEditierenRequest): Aufgabe {
+
         this.titel = aufgabeRequest.titel
         this.beschreibung = aufgabeRequest.beschreibung
         this.status = Status.valueOf(aufgabeRequest.status)

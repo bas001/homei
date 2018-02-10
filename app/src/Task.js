@@ -33,7 +33,7 @@ class Task extends Component {
                 beschreibung: it.refs.description.value,
                 status: Task.mapToStatus(it.refs.checkbox.checked)
             }));
-        }, 1000);
+        }, 200);
 
     }
 
